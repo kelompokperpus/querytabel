@@ -1,0 +1,125 @@
+NAMA ANGGOTA :
+1. Nadifa Fadila Putri / 1301174022
+2. Nadira Putri Arthamevia / 1301170395
+3. Naura Khairunnisa / 1301172540
+4. Novia Russelia Wassi / 1301174114
+5. Syifa Khairunnisa / 1301174095
+KELAS : IF-41-09
+
+BUATLAH PERINTAH SQL
+   a. BUKU
+      - CREATE
+	CREATE TABLE Buku
+	   (
+		id_buku CHAR(10),
+		judul_buku VARCHAR(50),
+		penulis VARCHAR(30),
+		halaman NUMBER,
+		CONSTRAINT Buku_PK PRIMARY KEY (id_buku) ENABLE
+	   );
+      - INSERT
+	INSERT INTO Buku (id_buku, judul_buku, penulis, halaman) VALUES ('1', 'About You', 'Tere Liye', 531);
+	INSERT INTO Buku (id_buku, judul_buku, penulis, halaman) VALUES ('2', 'Konspirasi Alam Semesta', 'Fiersa Besari', 308);
+	INSERT INTO Buku (id_buku, judul_buku, penulis, halaman) VALUES ('3', 'Bumi Manusia', 'Pramoediya Ananta Toer', 535);
+	INSERT INTO Buku (id_buku, judul_buku, penulis, halaman) VALUES ('4', 'Koala Kumal', 'Raditya Dika', 250);
+	INSERT INTO Buku (id_buku, judul_buku, penulis, halaman) VALUES ('5', 'Nonversation', 'Valerie Pakar', 384);
+      - SELECT
+	SELECT * FROM Buku
+	WHERE penulis = 'Raditya Dika'
+	ORDER BY id_buku;
+
+   b. PEMINJAM
+      - CREATE
+	CREATE TABLE Peminjam
+	   (
+		id_peminjam CHAR(10),
+		nama_peminjam VARCHAR(30),
+		jurusan VARCHAR(20),
+		angkatan NUMBER,
+		email VARCHAR(30),
+		unameP VARCHAR(20),
+		passwordP VARCHAR(15),
+		CONSTRAINT Peminjam_PK PRIMARY KEY (id_peminjam) ENABLE
+	   );
+      - INSERT
+	INSERT INTO Peminjam(id_peminjam, nama_peminjam, jurusan, angkatan, email, unameP, passwordP) VALUES ('14', 'Novia', 'S1 Informatika', 2017, 'russelya@gmail', 'novia14', 'novia123');
+	INSERT INTO Peminjam(id_peminjam, nama_peminjam, jurusan, angkatan, email, unameP, passwordP) VALUES ('09', 'Syifa', 'S1 DKV', 2017, 'syifa@gmail', 'syifa09', 'syifa123');
+	INSERT INTO Peminjam(id_peminjam, nama_peminjam, jurusan, angkatan, email, unameP, passwordP) VALUES ('95', 'Nadira', 'S1 MBTI', 2016, 'nadira@gmail', 'nadira95', 'nadira123');
+	INSERT INTO Peminjam(id_peminjam, nama_peminjam, jurusan, angkatan, email, unameP, passwordP) VALUES ('22', 'Nadifa', 'S1 Informatika', 2016, 'nadifa@gmail', 'nadifa22', 'nadifa123');
+	INSERT INTO Peminjam(id_peminjam, nama_peminjam, jurusan, angkatan, email, unameP, passwordP) VALUES ('40', 'Naura', 'S1 IKOM', 2017, 'naura@gmail', 'naura40', 'naura123');	
+      - SELECT
+	SELECT nama_peminjam
+	FROM Peminjam
+	WHERE angkatan = 2017
+	ORDER BY id_peminjam;
+
+   c. PETUGAS
+      - CREATE
+	CREATE TABLE Petugas
+	   (
+		id_petugas CHAR(10),
+		nama_pet VARCHAR(30),
+		jenisk_pet VARCHAR(10),
+		usia_pet NUMBER,
+		username VARCHAR(20),
+		password VARCHAR(15),
+		CONSTRAINT Petugas_PK PRIMARY KEY (id_petugas) ENABLE
+	   );
+      - INSERT
+	INSERT INTO Petugas(id_petugas, nama_pet, jenisk_pet, usia_pet, username, password) VALUES ('12', 'Jono', 'Laki-laki', 30, 'jono12', 'jono345');
+	INSERT INTO Petugas(id_petugas, nama_pet, jenisk_pet, usia_pet, username, password) VALUES ('23', 'Budi', 'Laki-laki', 26, 'budi23', 'budi345');
+	INSERT INTO Petugas(id_petugas, nama_pet, jenisk_pet, usia_pet, username, password) VALUES ('34', 'Anna', 'Perempuan', 25, 'anna34', 'anna345');
+	INSERT INTO Petugas(id_petugas, nama_pet, jenisk_pet, usia_pet, username, password) VALUES ('45', 'Dina', 'Perempuan', 28, 'dina45', 'dina345');
+	INSERT INTO Petugas(id_petugas, nama_pet, jenisk_pet, usia_pet, username, password) VALUES ('56', 'Didik', 'Laki-laki', 30, 'didik56', 'didik345');
+      - SELECT
+	SELECT nama_pet, usia_pet
+	FROM Petugas
+	WHERE jenisk_pet = 'Perempuan'
+	ORDER BY id_petugas;
+
+   d. TRANSAKSI
+      - CREATE
+	CREATE TABLE Transaksi
+	   (
+		id_transaksi CHAR(10),
+		id_buku CHAR(10),
+		id_peminjam CHAR(10),
+		id_petugas CHAR(10),
+		id_denda CHAR(10),
+		tanggal_pinjam DATE,
+		tanggal_kembali DATE,
+		CONSTRAINT Transaksi_PK PRIMARY KEY(id_transaksi) ENABLE,
+		CONSTRAINT Transaksi_FK1 FOREIGN KEY(id_peminjam) REFERENCES Peminjam(id_peminjam) ON DELETE CASCADE ENABLE,
+		CONSTRAINT Transaksi_FK2 FOREIGN KEY(id_buku) REFERENCES Buku(id_buku) ON DELETE CASCADE ENABLE,
+		CONSTRAINT Transaksi_FK3 FOREIGN KEY(id_petugas) REFERENCES Buku(id_petugas) ON DELETE CASCADE ENABLE,
+		CONSTRAINT Transaksi_FK4 FOREIGN KEY(id_denda) REFERENCES Buku(id_denda) ON DELETE CASCADE ENABLE
+	   );
+      - INSERT
+	INSERT INTO Transaksi(id_transaksi, id_buku, id_peminjam, id_petugas, id_denda, tanggal_pinjam, tanggal_kembali) VALUES ('1', '3', '22', '34', 'a', '12-09-2019', '19-09-2019');
+	INSERT INTO Transaksi(id_transaksi, id_buku, id_peminjam, id_petugas, id_denda, tanggal_pinjam, tanggal_kembali) VALUES ('2', '5', '14', '12', 'b', '10-09-2019', '18-09-2019');
+      - SELECT
+	SELECT id_transaksi, judul_buku, nama_peminjam, tanggal_pinjam, tanggal_kembali
+	FROM Transaksi 
+	JOIN Buku USING(id_buku)
+	JOIN Peminjam USING(id_peminjam);
+
+   e. DENDA
+      - CREATE
+	CREATE TABLE Denda
+	   (
+		id_denda CHAR(10),
+		total_denda VARCHAR(50),
+		id_peminjam CHAR(10),
+		id_buku CHAR(10),
+		tanggal_pinjam DATE,
+		tanggal_kembali DATE,	
+		CONSTRAINT Denda_PK PRIMARY KEY(id_denda) ENABLE,
+		CONSTRAINT Transaksi_FK1 FOREIGN KEY(id_peminjam) REFERENCES Peminjam(id_peminjam) ON DELETE CASCADE ENABLE,
+		CONSTRAINT Transaksi_FK2 FOREIGN KEY(id_buku) REFERENCES Buku(id_buku) ON DELETE CASCADE ENABLE
+	   );
+      - INSERT
+	INSERT INTO Denda(id_denda, total_denda, id_peminjam, id_buku, tanggal_pinjam, tanggal_kembali) VALUES ('b', '10000', '14', '5', '10-09-2019', '18-09-2019');
+      - SELECT
+	SELECT nama_peminjam, total_denda
+	FROM Denda
+	JOIN Peminjam USING(id_peminjam);
